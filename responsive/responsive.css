@@ -1,3 +1,11 @@
+@media screen and (max-width: 599px) {
+	.k8em0 {
+		width: 600px;
+		height: 600px;
+		background:url(k8em0.jpg) 600px 600px;
+	}
+}
+
 @media screen and (min-width: 600px) and (max-width: 899px) {
 	.k8em0 {
 		width: 600px;
