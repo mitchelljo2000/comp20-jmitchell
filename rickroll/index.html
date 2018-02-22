@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Rick Roll</title>
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+<h1 id="title">Rick Roll</h1>
+
+<video src="https://www.cs.tufts.edu/comp/20/rickroll.mp4" id="rickroll" controls></video>
+<div id="lyrics"></div>
+
+<script>
+	// Complete this section and create a CSS file named style.css
+	var video = document.getElementById("rickroll");
+	var lyric = document.getElementById("lyrics");
+
+	video.addEventListener("timeupdate", function() {
+		if (video.currentTime < 34) {
+			lyric.innerHTML = "<h3>We're no strangers to love<br/>You know the rules and so do I<br/>A full commitment's what I'm thinking of<br/>You wouldn't get this from any other guy</h3>";
+		}
+		else if (video.currentTime > 34 && video.currentTime < 43) {
+			lyric.innerHTML = "<h3>I just wanna tell you how I'm feeling<br/>Gotta make you understand</h3>";
+		}
+	}, false);
+</script>
+</body>
+</html>
