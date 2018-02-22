@@ -14,7 +14,6 @@
 <div id="lyrics"></div>
 
 <script>
-	// Complete this section and create a CSS file named style.css
 	var video = document.getElementById("rickroll");
 	var lyric = document.getElementById("lyrics");
 
@@ -48,6 +47,12 @@
 		}
 		else if (video.currentTime > 153 && video.currentTime < 161) {
 			lyric.innerHTML = "<h3>I just wanna tell you how I'm feeling<br/>Gotta make you understand</h3>";
+		}
+		else if (video.currentTime > 161) {
+			lyric.innerHTML = "<h3>Never gonna give you up<br/>Never gonna let you down<br/>Never gonna run around and desert you<br/>Never gonna make you cry<br/>Never gonna say goodbye<br/>Never gonna tell a lie and hurt you</h3>";
+		}
+		else {
+			lyric.innerHTML = "";
 		}
 	}, false);
 </script>
