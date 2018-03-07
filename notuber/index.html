@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Ride Sharing Service</title>
+		<meta charset="utf-8" />
+		<script>
+
+			myLat = 0;
+			myLng = 0;
+			
+			function getMyLocation() {
+				navigator.geolocation.getCurrentPosition(gotLocation);
+			}
+
+			function gotLocation(position) {
+				var myLat = position.coords.latitude;
+				var myLng = position.coords.longitude;
+				outputElem = document.getElementById("info");
+				outputElem.innerHTML = "<h1>You are at " + myLat + ", " + myLng + "</h1>";
+			}
+			
+		</script>
+	</head>
+
+	<body onload = "getMyLocation()">
+		<div id="info">
+			<h1>Waiting for Location</h1>
+		</div>
+	</body>
+</html>
