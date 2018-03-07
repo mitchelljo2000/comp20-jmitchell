@@ -2,29 +2,52 @@
 <html>
 	<head>
 		<title>Ride Sharing Service</title>
-		<meta charset="utf-8" />
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+		<link rel="stylesheet" href="ride_sharing_style.css" />
+		<script src="https://maps.google.com/maps/api/js?sensor=true"></script>
 		<script>
+			var myLat = 0;
+			var myLng = 0;
+			var map;
+			var marker;
+			var myMark = "my_mark.png";
+			var request;
 
-			myLat = 0;
-			myLng = 0;
-			
-			function getMyLocation() {
-				navigator.geolocation.getCurrentPosition(gotLocation);
+			function init() {
+				initMap();
 			}
 
-			function gotLocation(position) {
-				var myLat = position.coords.latitude;
-				var myLng = position.coords.longitude;
-				outputElem = document.getElementById("info");
-				outputElem.innerHTML = "<h1>You are at " + myLat + ", " + myLng + "</h1>";
+			function initMap() {
+				map = new google.maps.Map(document.getElementById("map"), {
+					zoom: 13,
+					center: {lat: myLat, lng: myLng},
+					mapTypeId: google.maps.MapTypeId.ROADMAP
+				});
+				getMYLocation();
 			}
-			
+
+			function getMYLocation() {
+				navigator.geolocation.getCurrentPosition(function(position) {
+					myLat = position.coords.latitude;
+					myLng = position.coords.longitude;
+					renderMap();
+				});
+			}
+
+			function renderMap() {
+				map.panTo({lat: myLat, lng: myLng});
+
+				marker = new google.maps.Marker({
+					position: {lat: myLat, lng: myLng},
+					title: "jmitch08",
+					icon: myMark
+				});
+				marker.setMap(map);
+			}
 		</script>
 	</head>
 
-	<body onload = "getMyLocation()">
-		<div id="info">
-			<h1>Waiting for Location</h1>
-		</div>
+	<body onload = "initMap()">
+		<div id="map"></div>
 	</body>
 </html>
