@@ -4,12 +4,12 @@
 		<title>Ride Sharing Service</title>
 		<meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
 		<link rel="stylesheet" href="ride_sharing_style.css" />
-		<script src="https://maps.google.com/maps/api/js?sensor=true"></script>
+		<script src="https://maps.google.com/maps/api/js?libraries=geometry&sensor=true"></script>
 		<script>
 			var myLat = 0;
 			var myLng = 0;
 			var map;
-			var marker;
+			//var marker;
 			var myMark = "my_mark.png";
 			var carMark = "car.png";
 			var request = new XMLHttpRequest();
@@ -48,7 +48,6 @@
 							json_obj = JSON.parse(request.responseText);
 
 							if (json_obj.hasOwnProperty("passengers")) {
-								console.log("it worked");
 								others = json_obj.passengers;
 								mark = "passenger.png"
 							}
@@ -67,20 +66,38 @@
 			function renderMap() {
 				map.panTo({lat: myLat, lng: myLng});
 
-				marker = new google.maps.Marker({
+				myMarker = new google.maps.Marker({
 					position: {lat: myLat, lng: myLng},
 					title: "l7jCQbvZxa",
 					icon: myMark
 				});
-				marker.setMap(map);
+				myMarker.setMap(map);
+
+				infowindow = new google.maps.InfoWindow();
+
+				google.maps.event.addListener(myMarker, 'click', function() {
+					infowindow.setContent(myMarker.title);
+					infowindow.open(map, myMarker);
+				});
 
 				for (i = 0; i < others.length; i++) {
+					myLatLng = new google.maps.LatLng({lat: myLat, lng: myLng});
+					otherLatLng = new google.maps.LatLng({lat: others[i].lat, lng: others[i].lng});
+					distance = google.maps.geometry.spherical.computeDistanceBetween(myLatLng, otherLatLng) * 0.000621371;
+
 					marker = new google.maps.Marker({
 						position: {lat: others[i].lat, lng: others[i].lng},
-						title: others[i].username,
+						title: "username: " + others[i].username + " distance: " + distance + " miles",
 						icon: mark
 					});
 					marker.setMap(map);
+
+					var infowindow = new google.maps.InfoWindow();
+
+					google.maps.event.addListener(marker, 'click', function() {
+						infowindow.setContent(this.title);
+						infowindow.open(map, this);
+					});
 				}
 			}
 		</script>
