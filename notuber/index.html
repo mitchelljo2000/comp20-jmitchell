@@ -44,9 +44,19 @@
 					request.onreadystatechange = function() {
 						if (request.readyState == 4 && request.status == 200) {
 							alert(request.responseText);
+
 							json_obj = JSON.parse(request.responseText);
-							others = json_obj.passengers;
-							console.log(others[1]._id);
+
+							if (json_obj.hasOwnProperty("passengers")) {
+								console.log("it worked");
+								others = json_obj.passengers;
+								mark = "passenger.png"
+							}
+							else {
+								others = json_obj.drivers;
+								mark = "car.png";
+							}
+
 							renderMap();
 						}
 					}
@@ -67,7 +77,8 @@
 				for (i = 0; i < others.length; i++) {
 					marker = new google.maps.Marker({
 						position: {lat: others[i].lat, lng: others[i].lng},
-						title: others[i].username
+						title: others[i].username,
+						icon: mark
 					});
 					marker.setMap(map);
 				}
