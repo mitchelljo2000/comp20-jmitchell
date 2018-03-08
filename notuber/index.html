@@ -66,24 +66,16 @@
 			function renderMap() {
 				map.panTo({lat: myLat, lng: myLng});
 
-				myMarker = new google.maps.Marker({
-					position: {lat: myLat, lng: myLng},
-					title: "l7jCQbvZxa",
-					icon: myMark
-				});
-				myMarker.setMap(map);
-
-				infowindow = new google.maps.InfoWindow();
-
-				google.maps.event.addListener(myMarker, 'click', function() {
-					infowindow.setContent(myMarker.title);
-					infowindow.open(map, myMarker);
-				});
+				var min_distance;
 
 				for (i = 0; i < others.length; i++) {
 					myLatLng = new google.maps.LatLng({lat: myLat, lng: myLng});
 					otherLatLng = new google.maps.LatLng({lat: others[i].lat, lng: others[i].lng});
 					distance = google.maps.geometry.spherical.computeDistanceBetween(myLatLng, otherLatLng) * 0.000621371;
+
+					if (i == 0 || distance < min_distance) {
+						min_distance = distance;
+					}
 
 					marker = new google.maps.Marker({
 						position: {lat: others[i].lat, lng: others[i].lng},
@@ -99,6 +91,20 @@
 						infowindow.open(map, this);
 					});
 				}
+
+				myMarker = new google.maps.Marker({
+					position: {lat: myLat, lng: myLng},
+					title: "username: l7jCQbvZxa minimum distance: " + min_distance,
+					icon: myMark
+				});
+				myMarker.setMap(map);
+
+				infowindow = new google.maps.InfoWindow();
+
+				google.maps.event.addListener(myMarker, 'click', function() {
+					infowindow.setContent(myMarker.title);
+					infowindow.open(map, myMarker);
+				});
 			}
 		</script>
 	</head>
