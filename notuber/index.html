@@ -9,14 +9,12 @@
 			var myLat = 0;
 			var myLng = 0;
 			var map;
-			//var marker;
 			var myMark = "my_mark.png";
 			var carMark = "car.png";
 			var request = new XMLHttpRequest();
 			var params;
 			var type;
 			var json_obj;
-			//var others;
 
 			function init() {
 				initMap();
@@ -50,7 +48,7 @@
 								mark = "passenger.png"
 							}
 							else {
-								others = json_obj.drivers;
+								others = json_obj.vehicles;
 								mark = "car.png";
 							}
 
