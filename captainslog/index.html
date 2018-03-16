@@ -9,12 +9,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
-            //$("#log").html(localStorage.getItem("log")); //YOU NEED THIS
+            $("#log").html(localStorage.getItem("log"));
 
             $("#msg").keydown(function(e) {
                 if (e.which == 13) {
-                    $("#log").append('<p>' + $("#msg").val() + '</p>');
-                    //localStorage.setItem("log", $("#log").html()); YOU NEED THIS
+                    date = new Date();
+
+                    $("#log").prepend('<p>' + date + ' - ' + $("#msg").val() + '</p>');
+                    localStorage.setItem("log", $("#log").html());
                 }
             });
         });
