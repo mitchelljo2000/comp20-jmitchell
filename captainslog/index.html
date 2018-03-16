@@ -9,19 +9,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
-            $("#log").html(localStorage.getItem("log"));
+            //$("#log").html(localStorage.getItem("log")); //YOU NEED THIS
 
             $("#msg").keydown(function(e) {
                 if (e.which == 13) {
-                    /*
-                    console.log("Test");
-                    localStorage.setItem($("#log").html(), $("#log").append('<p>Test 2</p>'));
-                    */
-
-                    $("#log").append('<p>Test</p>');
-                    localStorage.setItem("log", $("#log").html());
-                    //localStorage.content = $("#log").html();
-                    //$("#log").html(localStorage.content);
+                    $("#log").append('<p>' + $("#msg").val() + '</p>');
+                    //localStorage.setItem("log", $("#log").html()); YOU NEED THIS
                 }
             });
         });
