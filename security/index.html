@@ -6,10 +6,26 @@
 
 	<body>
 		<h1>Security and Privacy Assesment</h1>
+		
 		<h2>Introduction</h2>
+		<p>The product being examined is a Ride Sharing service that allows passengers or vehicles on the client-side to send their username, lattitude, and longitude to the server-side and have it send back the usernames, lattitudes, and longitudes of the vehicles if the client is a passenger or passengers if the client is a vehicle. On the client-side, the information sent back is then processed and displayed on a map using the Google Maps API. </p>
+		<p>I was hired to document and resolve the security and privacy issues in the applications.</p>
+
 		<h2>Methodology</h2>
+		<p>My first attempts to find potential security and privacy issues in the application was to use the curl command to send a string that can be interpreted as code to the web server's data base to see if the application was vulnerable to cross site scripting.</p>
+
 		<h2>Abstract of Findings</h2>
+
 		<h2>Issues Found</h2>
+		<p>Issue: Database Injection</p>
+		<ul>
+			<li>Location: Found on the page https://floating-crag-30203.herokuapp.com/</li>
+			<li>Severity: High - Being able to inject code is a very serious problem. While the code I injected only displayed an alert message, being able to inject code gives attackers the ability to navigate a user's browser to a different URL, thus triggering an HTTP request to a server created by the attacker. The URL could include the victim's cookies as a query parameter, which the attacker could then extract and use to impersonate the victim and launch more attacks</li>
+			<li>Description: The issue was found by using the curl command to insert a string that could be interpreted as code as the username parameter in the HTTP POST request.</li>
+			<li><a href="attack1">Proof of vulnerability</a></li>
+		</ul>
+
+
 		<h2>Conclusion</h2>
 		<h2>References</h2>
 	</body>
