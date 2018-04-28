@@ -15,18 +15,57 @@
 		<p>My first attempts to find potential security and privacy issues in the application was to use the curl command to send a string that can be interpreted as code to the web server's data base to see if the application was vulnerable to cross site scripting.</p>
 
 		<h2>Abstract of Findings</h2>
+		<p>Overall, the web application was vulnerable to be vulnerable to three different types of attacks. The first is cross site scripting, an attack in which script is injected by an attacker and interpreted as code by the application. The second is infinite sever requests, which could cause the server to overload and trask. The third is incorrect data interpretation, in which the parameters send in the server request are interpreted incorrectly by the server.</p>
 
 		<h2>Issues Found</h2>
-		<p>Issue: Database Injection</p>
+		<p>Issue: XSS Database Injection</p>
 		<ul>
 			<li>Location: Found on the page https://floating-crag-30203.herokuapp.com/</li>
 			<li>Severity: High - Being able to inject code is a very serious problem. While the code I injected only displayed an alert message, being able to inject code gives attackers the ability to navigate a user's browser to a different URL, thus triggering an HTTP request to a server created by the attacker. The URL could include the victim's cookies as a query parameter, which the attacker could then extract and use to impersonate the victim and launch more attacks</li>
 			<li>Description: The issue was found by using the curl command to insert a string that could be interpreted as code as the username parameter in the HTTP POST request.</li>
-			<li><a href="attack1">Proof of vulnerability</a></li>
+			<ul>
+				<li><img src="command1.png" alt="Curl Command 1"></li>
+			</ul>
+			<li>Proof of Vulnerability:</li>
+			<ul>
+				<li><img src="attack1.png" alt="First vulnerability" width = 534 height = 400></li>
+			</ul>
+			<li>Resolution: To prevent this issue for future applications, the ability for data to be interpreted as code should be removed. More specifically, < should be changed to an ampersand followed by "lt;" and > to an ampersand followed by "gt;".</li> 
+		</ul>
+		<p>Issue: Infinite Requests</p>
+		<ul>
+			<li>Location: Found on terminal </li>
+			<li>Severity: High - Sending infinite requests to the server could cause it to overload and crash due to the server-traffic being high non-stop.</li>
+			<li>Description: The issue was found on terminal using bash to create an infinite loop of requests to the server.</li>
+			<li>Proof of Vulnerability:</li>
+			<ul>
+				<li><img src="attack2.png" alt="Second Vulnerability"></li>
+			</ul>
+			<li>Resolution: Design the web server in a way that requests are processed only once.</li>
+		</ul>
+		<p>Issue: Incorrect Request Parameter Interpretation</p>
+		<ul>
+			<li>Location: Found on the page https://floating-crag-30203.herokuapp.com/</li>
+			<li>Severity: Moderate - This issue isn't as severe as the previous two, however, it still allows attackers to send data that will be interpreted incorrectly and change the way the victim's application looks and the way it is used.</li>
+			<li>Description: The issue was found by using the curl command to insert a string as the username parameter in the HTTP POST request that caused the username to be a block for text to be inserted.</li>
+				<ul>
+					<li><img src="command3.png" alt="Curl Command 3"></li>
+				</ul>
+			<li>Proof of Vulnerability:</li>
+			<ul>
+				<li><img src="attack3.png" alt="Third Vulnerability"></li>
+			</ul>
+			<li>Resolution: To solve this issue, server side validation is necessary inorder for the request parameters to be interpreted correctly.</li>
 		</ul>
 
 
 		<h2>Conclusion</h2>
+		<p>Overall, there are three main steps that need to be taken to make the application less vulnerable to attacks. One is to remove the ability for data to be interpreted as code. The second is to design the server in such a way tht requests are processed only once. The third and final step is for the server to have server side validation.</p>
+
 		<h2>References</h2>
+		<ul>
+			<li><a href="https://excess-xss.com/">Excess XSS A comprehensive tutorial on cross-site scripting</a></li>
+			<li><a href="https://tuftsdev.github.io/WebProgramming/notes/web_security.html">COMP 20: Web Programming - Web Security</a></li>
+		</ul>
 	</body>
 </html>
